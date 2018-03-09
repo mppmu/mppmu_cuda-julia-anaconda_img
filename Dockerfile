@@ -93,7 +93,14 @@ RUN true \
     && yum install -y \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote texlive-ulem \
-    && provisioning/install-sw.sh anaconda2 4.4.0 /opt/anaconda2
+    && provisioning/install-sw.sh anaconda2 5.1.0 /opt/anaconda2
+
+# Override some system libraries with Anaconda versions when used from Julia
+# (e.g. via PyPlot.jl), to resolve library version conflicts. Anaconda v5
+# needs CXXABI_1.3.9 and a more recent libz.
+RUN true \
+    && ln -s /opt/anaconda2/lib/libstdc++.so.6* /opt/julia/usr/lib \
+    && ln -s /opt/anaconda2/lib/libz.so* /opt/julia/usr/lib
 
 
 # Install Java:

@@ -25,6 +25,9 @@ pkg_install() {
     # For Cxx.jl:
     echo "BUILD_LLVM_CLANG=1" >> Make.user
 
+    # Fix PCRE download link (Julia issue #26757, for versions < 0.6.3)
+    sed 's|ftp\.csx\.cam\.ac\.uk/pub/software/programming|ftp.pcre.org/pub|' -i deps/pcre.mk
+
     # Build:
     time make -j"$(nproc)" all debug
     symlinks -r -c .

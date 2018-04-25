@@ -57,7 +57,10 @@ RUN true\
 
 RUN true \
     && yum install -y \
-        ImageMagick zeromq-devel gtk2 gtk3 qt5-qtbase-gui libxkbcommon-x11 gsl-devel fftw-devel
+        ImageMagick zeromq-devel \
+        libXt libXrender libXext mesa-libGL \
+        gtk2 gtk3 qt5-qtbase-gui libxkbcommon-x11 \
+        gsl-devel fftw-devel
 
 
 # Add CUDA libraries to LD_LIBRARY_PATH:

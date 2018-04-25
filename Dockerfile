@@ -63,6 +63,14 @@ RUN true \
         gsl-devel fftw-devel
 
 
+# Install ffmpeg (for Plots.jl animations, Makie.jl, etc.):
+
+RUN true \
+    && rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
+    && rpm -ivh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm \
+    && yum install -y ffmpeg ffmpeg-devel
+
+
 # Add CUDA libraries to LD_LIBRARY_PATH:
 
 ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/nvvm/lib64:$LD_LIBRARY_PATH"

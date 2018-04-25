@@ -106,6 +106,12 @@ RUN true \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote texlive-ulem \
     && provisioning/install-sw.sh anaconda2 5.1.0 /opt/anaconda2
 
+# Override some system libraries with Anaconda versions when used from Julia,
+# to resolve library version conflicts (ZMQ.jl, e.g., currently requires
+# GLIBCXX_3.4.20).
+RUN true \
+    && ln -s /opt/anaconda2/lib/libstdc++.so.6* /opt/julia/usr/lib
+
 
 # Install Java:
 

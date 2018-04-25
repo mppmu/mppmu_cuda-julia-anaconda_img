@@ -59,7 +59,7 @@ RUN true \
     && yum install -y \
         ImageMagick zeromq-devel \
         libXt libXrender libXext mesa-libGL \
-        gtk2 gtk3 qt5-qtbase-gui libxkbcommon-x11 \
+        gtk2 gtk3 qt5-qtbase-gui glfw libxkbcommon-x11 \
         gsl-devel fftw-devel
 
 

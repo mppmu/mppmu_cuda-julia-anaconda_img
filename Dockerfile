@@ -108,9 +108,10 @@ RUN true \
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires
-# GLIBCXX_3.4.20).
+# GLIBCXX_3.4.20, matplotlib needs CXXABI_1.3.9 and a more recent libz).
 RUN true \
-    && ln -s /opt/anaconda2/lib/libstdc++.so.6* /opt/julia/usr/lib
+    && ln -s /opt/anaconda2/lib/libstdc++.so.6* /opt/julia/usr/lib \
+    && ln -s /opt/anaconda2/lib/libz.so.1* /opt/julia/usr/lib
 
 
 # Install Java:

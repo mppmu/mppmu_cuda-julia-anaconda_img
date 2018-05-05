@@ -138,7 +138,8 @@ RUN provisioning/install-sw.sh hdf5-srcbuild 1.10.1 /opt/hdf5
 
 RUN yum install -y \
     xorg-x11-server-utils mesa-dri-drivers glx-utils \
-    xdg-utils
+    xdg-utils \
+    xorg-x11-server-Xvfb
 
 
 # Clean up:

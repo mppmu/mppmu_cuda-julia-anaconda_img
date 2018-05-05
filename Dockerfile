@@ -116,6 +116,9 @@ RUN true \
 
 # Install Java:
 
+# JavaCall.jl needs JAVA_HOME to locate libjvm.so:
+ENV JAVA_HOME="/usr/lib/jvm/java"
+
 RUN yum install -y \
         java-1.8.0-openjdk-devel
 

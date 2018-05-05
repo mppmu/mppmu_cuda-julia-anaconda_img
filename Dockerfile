@@ -60,7 +60,7 @@ RUN true \
         ImageMagick zeromq-devel \
         libXt libXrender libXext mesa-libGL \
         gtk2 gtk3 qt5-qtbase-gui glfw libxkbcommon-x11 \
-        gsl-devel fftw-devel
+        gsl-devel fftw-devel unixODBC
 
 
 # Install ffmpeg (for Plots.jl animations, Makie.jl, etc.):

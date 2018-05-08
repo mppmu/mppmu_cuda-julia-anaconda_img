@@ -55,6 +55,8 @@ RUN true\
 
 # Install depencencies of common Julia packages:
 
+ENV JULIA_CXX_CPU="x86-64"
+
 RUN true \
     && yum install -y \
         ImageMagick zeromq-devel \

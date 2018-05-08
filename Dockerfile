@@ -50,12 +50,12 @@ ENV \
 RUN true\
     && yum install -y \
         which libedit-devel ncurses-devel openssl openssl-devel symlinks \
-    && MARCH=x86-64 provisioning/install-sw.sh julia-srcbuild JuliaLang/v0.6.2 /opt/julia
+    && MARCH=corei7-avx provisioning/install-sw.sh julia-srcbuild JuliaLang/v0.6.2 /opt/julia
 
 
 # Install depencencies of common Julia packages:
 
-ENV JULIA_CXX_CPU="x86-64"
+ENV JULIA_CXX_CPU="corei7-avx"
 
 RUN true \
     && yum install -y \

@@ -144,6 +144,13 @@ RUN yum install -y \
     xorg-x11-server-Xvfb
 
 
+# Default profile environment settings:
+
+ENV \
+    LESSOPEN="||/usr/bin/lesspipe.sh %s"\
+    LESSCLOSE=""
+
+
 # Clean up:
 
 RUN true \

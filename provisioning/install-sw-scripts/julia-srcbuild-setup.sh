@@ -29,7 +29,7 @@ pkg_install() {
     sed 's|ftp\.csx\.cam\.ac\.uk/pub/software/programming|ftp.pcre.org/pub|' -i deps/pcre.mk
 
     # Build:
-    time make -j"$(nproc)" all debug
+    time make -j"$(nproc)" all
     symlinks -r -c .
 
     # Install:

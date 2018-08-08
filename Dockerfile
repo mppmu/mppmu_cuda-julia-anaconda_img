@@ -59,6 +59,7 @@ ENV JULIA_CXX_CPU="x86-64"
 
 RUN true \
     && yum install -y \
+        libgfortran4 \
         ImageMagick zeromq-devel \
         libXt libXrender libXext mesa-libGL \
         gtk2 gtk3 qt5-qtbase-gui glfw libxkbcommon-x11 \

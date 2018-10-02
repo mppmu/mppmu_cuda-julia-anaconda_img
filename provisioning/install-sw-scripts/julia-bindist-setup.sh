@@ -27,6 +27,6 @@ pkg_env_vars() {
 cat <<-EOF
 PATH="${INSTALL_PREFIX}/bin:\$PATH"
 MANPATH="${INSTALL_PREFIX}/share/man:\$MANPATH"
-export PATH LD_LIBRARY_PATH MANPATH JULIA_HOME
+export PATH MANPATH
 EOF
 }

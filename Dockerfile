@@ -114,6 +114,17 @@ RUN true \
     && ln -s /opt/anaconda2/lib/libz.so.1* /opt/julia/lib/julia
 
 
+# Install Node.js:
+
+COPY provisioning/install-sw-scripts/nodejs-* provisioning/install-sw-scripts/
+
+ENV \
+    PATH="/opt/nodejs/bin:$PATH" \
+    MANPATH="/opt/nodejs/share/man:$MANPATH"
+
+RUN provisioning/install-sw.sh nodejs-bindist 8.12.0 /opt/nodejs
+
+
 # Install Java:
 
 # JavaCall.jl needs JAVA_HOME to locate libjvm.so:

@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.1-cudnn7-devel-centos7
+FROM nvidia/cuda:9.2-cudnn7-devel-centos7
 
 # User and workdir settings:
 

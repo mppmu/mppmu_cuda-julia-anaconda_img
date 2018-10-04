@@ -20,6 +20,9 @@ pkg_install() {
 
     # For rjulia and embedding Julia:
     (cd "${INSTALL_PREFIX}/lib" && ln -s "julia/libstdc++.so.6" .)
+
+    mkdir -p "/buildworker/worker/package_linux64/build"
+    ln -s "${INSTALL_PREFIX}" "/buildworker/worker/package_linux64/build/usr"
 }
 
 

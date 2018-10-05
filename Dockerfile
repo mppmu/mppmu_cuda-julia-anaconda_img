@@ -36,7 +36,7 @@ ENV \
     PATH="/opt/cmake/bin:$PATH" \
     MANPATH="/opt/cmake/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh cmake 3.11.4 /opt/cmake
+RUN provisioning/install-sw.sh cmake 3.12.3 /opt/cmake
 
 
 # Install Julia:

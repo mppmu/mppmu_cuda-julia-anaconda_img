@@ -7,7 +7,7 @@ DEFAULT_BUILD_OPTS=""
 
 
 pkg_installed_check() {
-    test -f "${INSTALL_PREFIX}/share/jupyter/lab/staging/node_modules/julia-web-io/webio.js"
+    test -d "${INSTALL_PREFIX}/assets"
 }
 
 
@@ -19,7 +19,10 @@ pkg_install() {
     git checkout "${GIT_BRANCH}"
 
     export PATH="${INSTALL_PREFIX}/bin:${PATH}"
-    cd "assets"
+
+    mkdir "${INSTALL_PREFIX}"
+    cp -a "assets" "${INSTALL_PREFIX}/assets"
+    cd "${INSTALL_PREFIX}/assets"
     jupyter labextension install webio
     jupyter labextension enable webio/jupyterlab_entry
 }

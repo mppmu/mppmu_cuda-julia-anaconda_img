@@ -125,6 +125,13 @@ ENV \
 RUN provisioning/install-sw.sh nodejs-bindist 8.12.0 /opt/nodejs
 
 
+# Install WebIO.jl JupyterLAB extension:
+
+COPY provisioning/install-sw-scripts/webio-* provisioning/install-sw-scripts/
+
+RUN provisioning/install-sw.sh webio-jupyterlab JuliaGizmos/fef1012 /opt/anaconda2
+
+
 # Install Java:
 
 # JavaCall.jl needs JAVA_HOME to locate libjvm.so:

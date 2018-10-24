@@ -145,13 +145,6 @@ ENV \
 RUN provisioning/install-sw.sh hdf5-srcbuild 1.10.2 /opt/hdf5
 
 
-# Install WebIO.jl JupyterLAB extension:
-
-COPY provisioning/install-sw-scripts/webio-jupyterlab-* provisioning/install-sw-scripts/
-
-RUN provisioning/install-sw.sh webio-jupyterlab JuliaGizmos/v0.4.0 /opt/webio-jupyterlab
-
-
 # Install support for graphical applications:
 
 RUN yum install -y \

@@ -106,7 +106,7 @@ RUN true \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex \
-    && provisioning/install-sw.sh anaconda2 5.3.0 /opt/anaconda2
+    && provisioning/install-sw.sh anaconda2 5.3.1 /opt/anaconda2
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires

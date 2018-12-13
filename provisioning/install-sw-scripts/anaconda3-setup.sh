@@ -9,7 +9,7 @@ pkg_installed_check() {
 
 
 pkg_install() {
-    DOWNLOAD_URL="https://repo.continuum.io/archive/Anaconda2-${PACKAGE_VERSION}-Linux-x86_64.sh"
+    DOWNLOAD_URL="https://repo.continuum.io/archive/Anaconda3-${PACKAGE_VERSION}-Linux-x86_64.sh"
     echo "INFO: Download URL: \"${DOWNLOAD_URL}\"." >&2
 
     download "${DOWNLOAD_URL}" > anaconda-installer.sh

@@ -90,13 +90,13 @@ RUN true \
 # "/etc/OpenCL/vendors" should be mounted in from host as well.
 
 
-# Install Anaconda2:
+# Install Anaconda3:
 
-COPY provisioning/install-sw-scripts/anaconda2-* provisioning/install-sw-scripts/
+COPY provisioning/install-sw-scripts/anaconda3-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/anaconda2/bin:$PATH" \
-    MANPATH="/opt/anaconda2/share/man:$MANPATH" \
+    PATH="/opt/anaconda3/bin:$PATH" \
+    MANPATH="/opt/anaconda3/share/man:$MANPATH" \
     JUPYTER=jupyter
 
     # JUPYTER environment variable used by IJulia to detect Jupyter installation
@@ -106,13 +106,13 @@ RUN true \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex \
-    && provisioning/install-sw.sh anaconda2 5.3.1 /opt/anaconda2
+    && provisioning/install-sw.sh anaconda3 5.3.1 /opt/anaconda3
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires
 # GLIBCXX_3.4.20, matplotlib needs CXXABI_1.3.9 and a more recent libz).
 RUN true \
-    && ln -s /opt/anaconda2/lib/libz.so.1* /opt/julia/lib/julia
+    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia/lib/julia
 
 
 # Install Node.js:

@@ -50,7 +50,7 @@ ENV \
 RUN true\
     && yum install -y \
         which libedit-devel ncurses-devel openssl openssl-devel symlinks \
-    && provisioning/install-sw.sh julia-bindist 1.0.3 /opt/julia
+    && provisioning/install-sw.sh julia-bindist 1.1.0 /opt/julia
 
 
 # Install depencencies of common Julia packages:

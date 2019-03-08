@@ -105,7 +105,7 @@ RUN true \
     && yum install -y \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
-        texlive-ulem texlive-xetex \
+        texlive-ulem texlive-xetex inkscape \
     && provisioning/install-sw.sh anaconda3 2018.12 /opt/anaconda3
 
 # Override some system libraries with Anaconda versions when used from Julia,

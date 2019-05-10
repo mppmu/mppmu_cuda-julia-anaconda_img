@@ -143,7 +143,7 @@ ENV \
     PATH="/opt/hdf5/bin:$PATH" \
     LD_LIBRARY_PATH="/opt/hdf5/lib:$LD_LIBRARY_PATH"
 
-RUN provisioning/install-sw.sh hdf5-srcbuild 1.10.4 /opt/hdf5
+RUN provisioning/install-sw.sh hdf5-srcbuild 1.10.5 /opt/hdf5
 
 
 # Install support for graphical applications:

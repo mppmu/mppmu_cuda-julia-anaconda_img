@@ -16,26 +16,6 @@ pkg_install() {
     bash ./anaconda-installer.sh -b -p "${INSTALL_PREFIX}"
 
     conda clean -y --tarballs
-
-    (
-        cd "${INSTALL_PREFIX}"
-
-        primary=""
-        fdupes -H pkgs/*/lib lib | while read filename; do
-            if [ -z "${filename}" ] ; then
-                primary=""
-            else
-                if [ -z "${primary}" ] ; then
-                    #echo
-                    primary="../${filename}"
-                    #echo PRIMARY=$primary
-                else
-                    echo "Replacing \"${filename}\" by symlink to \"${primary}\"" >&2
-                    ln -s -f "${primary}" "${filename}"
-                fi
-            fi
-        done
-    )
 }
 
 

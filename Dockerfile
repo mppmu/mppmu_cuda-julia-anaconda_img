@@ -103,6 +103,7 @@ ENV \
 
 RUN true \
     && yum install -y \
+        fdupes \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex inkscape \

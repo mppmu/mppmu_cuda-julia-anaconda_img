@@ -16,6 +16,9 @@ pkg_install() {
     bash ./anaconda-installer.sh -b -p "${INSTALL_PREFIX}"
 
     conda clean -y --tarballs
+
+    mkdir "${INSTALL_PREFIX}/devbin"
+    mv "${INSTALL_PREFIX}/bin"/*-config "${INSTALL_PREFIX}/devbin"
 }
 
 

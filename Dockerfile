@@ -36,7 +36,7 @@ ENV \
     PATH="/opt/cmake/bin:$PATH" \
     MANPATH="/opt/cmake/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh cmake 3.14.4 /opt/cmake
+RUN provisioning/install-sw.sh cmake 3.15.1 /opt/cmake
 
 
 # Install Julia:
@@ -44,13 +44,19 @@ RUN provisioning/install-sw.sh cmake 3.14.4 /opt/cmake
 COPY provisioning/install-sw-scripts/julia-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/julia/bin:$PATH" \
+    PATH="/opt/julia/bin:/opt/julia-1.3/bin:/opt/julia-1.2/bin:/opt/julia-1.1/bin:$PATH" \
     MANPATH="/opt/julia/share/man:$MANPATH"
 
 RUN true\
     && yum install -y \
         which libedit-devel ncurses-devel openssl openssl-devel symlinks \
-    && provisioning/install-sw.sh julia-bindist 1.1.1 /opt/julia
+    && provisioning/install-sw.sh julia-bindist 1.1.1 /opt/julia-1.1 \
+    && (cd /opt/julia-1.1/bin && ln -s julia julia-1.1) \
+    && provisioning/install-sw.sh julia-bindist 1.2.0-rc2 /opt/julia-1.2 \
+    && (cd /opt/julia-1.2/bin && ln -s julia julia-1.2) \
+    && provisioning/install-sw.sh julia-bindist 1.3.0-alpha /opt/julia-1.3 \
+    && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
+    && (cd /opt && ln -s julia-1.2 julia)
 
 
 # Install depencencies of common Julia packages:
@@ -107,13 +113,15 @@ RUN true \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex inkscape \
-    && provisioning/install-sw.sh anaconda3 2019.03 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2019.07 /opt/anaconda3
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires
 # GLIBCXX_3.4.20, matplotlib needs CXXABI_1.3.9 and a more recent libz).
 RUN true \
-    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia/lib/julia
+    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.1/lib/julia \
+    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.2/lib/julia \
+    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.3/lib/julia
 
 
 # Install Node.js:

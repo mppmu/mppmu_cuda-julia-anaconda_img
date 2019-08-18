@@ -52,9 +52,9 @@ RUN true\
         which libedit-devel ncurses-devel openssl openssl-devel symlinks \
     && provisioning/install-sw.sh julia-bindist 1.1.1 /opt/julia-1.1 \
     && (cd /opt/julia-1.1/bin && ln -s julia julia-1.1) \
-    && provisioning/install-sw.sh julia-bindist 1.2.0-rc2 /opt/julia-1.2 \
+    && provisioning/install-sw.sh julia-bindist 1.2.0-rc3 /opt/julia-1.2 \
     && (cd /opt/julia-1.2/bin && ln -s julia julia-1.2) \
-    && provisioning/install-sw.sh julia-bindist 1.3.0-alpha /opt/julia-1.3 \
+    && provisioning/install-sw.sh julia-bindist 1.3.0-rc1 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
     && (cd /opt && ln -s julia-1.2 julia)
 

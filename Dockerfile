@@ -36,7 +36,7 @@ ENV \
     PATH="/opt/cmake/bin:$PATH" \
     MANPATH="/opt/cmake/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh cmake 3.15.1 /opt/cmake
+RUN provisioning/install-sw.sh cmake 3.15.3 /opt/cmake
 
 
 # Install Julia:
@@ -54,7 +54,7 @@ RUN true\
     && (cd /opt/julia-1.1/bin && ln -s julia julia-1.1) \
     && provisioning/install-sw.sh julia-bindist 1.2.0 /opt/julia-1.2 \
     && (cd /opt/julia-1.2/bin && ln -s julia julia-1.2) \
-    && provisioning/install-sw.sh julia-bindist 1.3.0-rc1 /opt/julia-1.3 \
+    && provisioning/install-sw.sh julia-bindist 1.3.0-rc2 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
     && (cd /opt && ln -s julia-1.2 julia)
 
@@ -132,7 +132,7 @@ ENV \
     PATH="/opt/nodejs/bin:$PATH" \
     MANPATH="/opt/nodejs/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh nodejs-bindist 10.16.0 /opt/nodejs
+RUN provisioning/install-sw.sh nodejs-bindist 10.16.3 /opt/nodejs
 
 
 # Install Java:

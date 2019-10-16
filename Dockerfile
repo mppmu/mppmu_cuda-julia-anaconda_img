@@ -21,6 +21,7 @@ RUN true \
         p7zip \
         git svn \
         lsb-core-noarch \
+        numactl \
     && dbus-uuidgen > /etc/machine-id
 
 

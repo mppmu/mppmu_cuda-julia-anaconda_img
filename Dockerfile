@@ -125,17 +125,6 @@ RUN yum install -y \
         java-1.8.0-openjdk-devel
 
 
-# Install HDF5:
-
-COPY provisioning/install-sw-scripts/hdf5-* provisioning/install-sw-scripts/
-
-ENV \
-    PATH="/opt/hdf5/bin:$PATH" \
-    LD_LIBRARY_PATH="/opt/hdf5/lib:$LD_LIBRARY_PATH"
-
-RUN provisioning/install-sw.sh hdf5-srcbuild 1.10.5 /opt/hdf5
-
-
 # Install support for graphical applications:
 
 RUN yum install -y \

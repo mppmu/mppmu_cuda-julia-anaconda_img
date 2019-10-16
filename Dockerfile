@@ -20,6 +20,8 @@ RUN true \
         wget curl rsync \
         p7zip \
         git svn \
+        lsb-core-noarch \
+        numactl \
     && dbus-uuidgen > /etc/machine-id
 
 
@@ -36,7 +38,7 @@ ENV \
     PATH="/opt/cmake/bin:$PATH" \
     MANPATH="/opt/cmake/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh cmake 3.15.3 /opt/cmake
+RUN provisioning/install-sw.sh cmake 3.15.4 /opt/cmake
 
 
 # Install Julia:
@@ -44,19 +46,17 @@ RUN provisioning/install-sw.sh cmake 3.15.3 /opt/cmake
 COPY provisioning/install-sw-scripts/julia-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/julia/bin:/opt/julia-1.3/bin:/opt/julia-1.2/bin:/opt/julia-1.0/bin:$PATH" \
+    PATH="/opt/julia/bin:/opt/julia-1.3/bin:/opt/julia-1.0/bin:$PATH" \
     MANPATH="/opt/julia/share/man:$MANPATH"
 
 RUN true\
     && yum install -y \
         which libedit-devel ncurses-devel openssl openssl-devel symlinks \
-    && provisioning/install-sw.sh julia-bindist 1.0.4 /opt/julia-1.0 \
+    && provisioning/install-sw.sh julia-bindist 1.0.5 /opt/julia-1.0 \
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
-    && provisioning/install-sw.sh julia-bindist 1.2.0 /opt/julia-1.2 \
-    && (cd /opt/julia-1.2/bin && ln -s julia julia-1.2) \
-    && provisioning/install-sw.sh julia-bindist 1.3.0-rc3 /opt/julia-1.3 \
+    && provisioning/install-sw.sh julia-bindist 1.3.0-rc4 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
-    && (cd /opt && ln -s julia-1.2 julia)
+    && (cd /opt && ln -s julia-1.3 julia)
 
 
 # Install depencencies of common Julia packages:
@@ -113,15 +113,14 @@ RUN true \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex inkscape \
-    && provisioning/install-sw.sh anaconda3 2019.07 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2019.10 /opt/anaconda3
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires
 # GLIBCXX_3.4.20, matplotlib needs CXXABI_1.3.9 and a more recent libz).
+# Not required for Julia >=v1.3.0-rc4 (brings it's own libz).
 RUN true \
-    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia \
-    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.2/lib/julia \
-    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.3/lib/julia
+    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
 # Install Node.js:
@@ -132,7 +131,7 @@ ENV \
     PATH="/opt/nodejs/bin:$PATH" \
     MANPATH="/opt/nodejs/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh nodejs-bindist 10.16.3 /opt/nodejs
+RUN provisioning/install-sw.sh nodejs-bindist 12.12.0 /opt/nodejs
 
 
 # Install Java:
@@ -144,23 +143,14 @@ RUN yum install -y \
         java-1.8.0-openjdk-devel
 
 
-# Install HDF5:
-
-COPY provisioning/install-sw-scripts/hdf5-* provisioning/install-sw-scripts/
-
-ENV \
-    PATH="/opt/hdf5/bin:$PATH" \
-    LD_LIBRARY_PATH="/opt/hdf5/lib:$LD_LIBRARY_PATH"
-
-RUN provisioning/install-sw.sh hdf5-srcbuild 1.10.5 /opt/hdf5
-
-
-# Install support for graphical applications:
+# Install support for GUI applications:
 
 RUN yum install -y \
     xorg-x11-server-utils mesa-dri-drivers glx-utils \
     xdg-utils \
-    xorg-x11-server-Xvfb
+    xorg-x11-server-Xvfb \
+    libXScrnSaver libXtst libxkbfile \
+    levien-inconsolata-fonts dejavu-sans-fonts
 
 
 # Default profile environment settings:

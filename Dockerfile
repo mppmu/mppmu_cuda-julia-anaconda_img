@@ -46,7 +46,7 @@ RUN provisioning/install-sw.sh cmake 3.15.4 /opt/cmake
 COPY provisioning/install-sw-scripts/julia-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/julia/bin:/opt/julia-1.3/bin:/opt/julia-1.2/bin:/opt/julia-1.0/bin:$PATH" \
+    PATH="/opt/julia/bin:/opt/julia-1.3/bin:/opt/julia-1.0/bin:$PATH" \
     MANPATH="/opt/julia/share/man:$MANPATH"
 
 RUN true\
@@ -54,11 +54,9 @@ RUN true\
         which libedit-devel ncurses-devel openssl openssl-devel symlinks \
     && provisioning/install-sw.sh julia-bindist 1.0.5 /opt/julia-1.0 \
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
-    && provisioning/install-sw.sh julia-bindist 1.2.0 /opt/julia-1.2 \
-    && (cd /opt/julia-1.2/bin && ln -s julia julia-1.2) \
     && provisioning/install-sw.sh julia-bindist 1.3.0-rc4 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
-    && (cd /opt && ln -s julia-1.2 julia)
+    && (cd /opt && ln -s julia-1.3 julia)
 
 
 # Install depencencies of common Julia packages:
@@ -104,8 +102,7 @@ RUN true \
 # GLIBCXX_3.4.20, matplotlib needs CXXABI_1.3.9 and a more recent libz).
 # Not required for Julia >=v1.3.0-rc4 (brings it's own libz).
 RUN true \
-    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia \
-    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.2/lib/julia
+    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
 # Install Node.js:

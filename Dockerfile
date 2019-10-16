@@ -125,12 +125,14 @@ RUN yum install -y \
         java-1.8.0-openjdk-devel
 
 
-# Install support for graphical applications:
+# Install support for GUI applications:
 
 RUN yum install -y \
     xorg-x11-server-utils mesa-dri-drivers glx-utils \
     xdg-utils \
-    xorg-x11-server-Xvfb
+    xorg-x11-server-Xvfb \
+    libXScrnSaver libXtst libxkbfile \
+    levien-inconsolata-fonts dejavu-sans-fonts
 
 
 # Default profile environment settings:

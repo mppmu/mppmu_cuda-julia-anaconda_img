@@ -20,6 +20,7 @@ RUN true \
         wget curl rsync \
         p7zip \
         git svn \
+        lsb-core-noarch \
     && dbus-uuidgen > /etc/machine-id
 
 

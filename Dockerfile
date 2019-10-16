@@ -52,7 +52,7 @@ ENV \
 RUN true\
     && yum install -y \
         which libedit-devel ncurses-devel openssl openssl-devel symlinks \
-    && provisioning/install-sw.sh julia-bindist 1.0.4 /opt/julia-1.0 \
+    && provisioning/install-sw.sh julia-bindist 1.0.5 /opt/julia-1.0 \
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
     && provisioning/install-sw.sh julia-bindist 1.2.0 /opt/julia-1.2 \
     && (cd /opt/julia-1.2/bin && ln -s julia julia-1.2) \

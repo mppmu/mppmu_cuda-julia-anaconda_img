@@ -56,7 +56,7 @@ RUN true\
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
     && provisioning/install-sw.sh julia-bindist 1.2.0 /opt/julia-1.2 \
     && (cd /opt/julia-1.2/bin && ln -s julia julia-1.2) \
-    && provisioning/install-sw.sh julia-bindist 1.3.0-rc3 /opt/julia-1.3 \
+    && provisioning/install-sw.sh julia-bindist 1.3.0-rc4 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
     && (cd /opt && ln -s julia-1.2 julia)
 
@@ -102,10 +102,10 @@ RUN true \
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires
 # GLIBCXX_3.4.20, matplotlib needs CXXABI_1.3.9 and a more recent libz).
+# Not required for Julia >=v1.3.0-rc4 (brings it's own libz).
 RUN true \
     && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia \
-    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.2/lib/julia \
-    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.3/lib/julia
+    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.2/lib/julia
 
 
 # Install Node.js:

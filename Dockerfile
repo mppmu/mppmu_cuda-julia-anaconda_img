@@ -105,7 +105,7 @@ RUN true \
     && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
-# Install additional Jupyter-related Python packages:
+# Install Jupyter extensions:
 
 RUN true \
     && conda install -y -c conda-forge rise \
@@ -148,6 +148,18 @@ RUN yum install -y \
 ENV \
     LESSOPEN="||/usr/bin/lesspipe.sh %s"\
     LESSCLOSE=""
+
+
+# Install additional packages:
+
+RUN yum install -y \
+        \
+        htop nmon \
+        nano vim \
+        git-gui gitk \
+        nmap-ncat \
+        \
+        http://linuxsoft.cern.ch/cern/centos/7/cern/x86_64/Packages/parallel-20150522-1.el7.cern.noarch.rpm
 
 
 # Clean up:

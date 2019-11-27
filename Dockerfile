@@ -96,6 +96,11 @@ RUN true \
 # "/etc/OpenCL/vendors" should be mounted in from host as well.
 
 
+# Install Nvidia visual profiler:
+
+RUN yum install -y cuda-nvvp-10-1
+
+
 # Install Anaconda3:
 
 COPY provisioning/install-sw-scripts/anaconda3-* provisioning/install-sw-scripts/

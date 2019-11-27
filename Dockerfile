@@ -38,7 +38,7 @@ ENV \
     PATH="/opt/cmake/bin:$PATH" \
     MANPATH="/opt/cmake/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh cmake 3.15.4 /opt/cmake
+RUN provisioning/install-sw.sh cmake 3.16.0 /opt/cmake
 
 
 # Install Julia:
@@ -54,7 +54,7 @@ RUN true\
         which libedit-devel ncurses-devel openssl openssl-devel symlinks \
     && provisioning/install-sw.sh julia-bindist 1.0.5 /opt/julia-1.0 \
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
-    && provisioning/install-sw.sh julia-bindist 1.3.0-rc5 /opt/julia-1.3 \
+    && provisioning/install-sw.sh julia-bindist 1.3.0 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
     && (cd /opt && ln -s julia-1.3 julia)
 
@@ -123,6 +123,14 @@ RUN true \
     && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
+# Install Jupyter extensions:
+
+RUN true \
+    && conda install -y -c conda-forge rise \
+    && conda install -y -c conda-forge jupyter_contrib_nbextensions \
+    && pip install bash_kernel && JUPYTER_DATA_DIR="/opt/anaconda3/share/jupyter" python -m bash_kernel.install
+
+
 # Install Node.js:
 
 COPY provisioning/install-sw-scripts/nodejs-* provisioning/install-sw-scripts/
@@ -131,7 +139,7 @@ ENV \
     PATH="/opt/nodejs/bin:$PATH" \
     MANPATH="/opt/nodejs/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh nodejs-bindist 12.12.0 /opt/nodejs
+RUN provisioning/install-sw.sh nodejs-bindist 12.13.1 /opt/nodejs
 
 
 # Install Java:
@@ -158,6 +166,18 @@ RUN yum install -y \
 ENV \
     LESSOPEN="||/usr/bin/lesspipe.sh %s"\
     LESSCLOSE=""
+
+
+# Install additional packages:
+
+RUN yum install -y \
+        \
+        htop nmon \
+        nano vim \
+        git-gui gitk \
+        nmap-ncat \
+        \
+        http://linuxsoft.cern.ch/cern/centos/7/cern/x86_64/Packages/parallel-20150522-1.el7.cern.noarch.rpm
 
 
 # Clean up:

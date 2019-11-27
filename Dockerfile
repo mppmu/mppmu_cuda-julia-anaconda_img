@@ -105,6 +105,14 @@ RUN true \
     && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
+# Install additional Jupyter-related Python packages:
+
+RUN true \
+    && conda install -y -c conda-forge rise \
+    && conda install -y -c conda-forge jupyter_contrib_nbextensions \
+    && pip install bash_kernel && JUPYTER_DATA_DIR="/opt/anaconda3/share/jupyter" python -m bash_kernel.install
+
+
 # Install Node.js:
 
 COPY provisioning/install-sw-scripts/nodejs-* provisioning/install-sw-scripts/

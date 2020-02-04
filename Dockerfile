@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-cudnn7-devel-centos7
+FROM nvidia/cuda:10.2-cudnn7-devel-centos7
 
 # User and workdir settings:
 
@@ -100,7 +100,7 @@ RUN true \
 
 # Install Nvidia visual profiler:
 
-RUN yum install -y cuda-nvvp-10-1
+RUN yum install -y cuda-nvvp-10-2
 
 
 # Install Anaconda3:

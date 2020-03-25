@@ -82,7 +82,9 @@ RUN true \
 
 # Add CUDA libraries to LD_LIBRARY_PATH:
 
-ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/nvvm/lib64:$LD_LIBRARY_PATH"
+ENV \
+    LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/nvvm/lib64:$LD_LIBRARY_PATH" \
+    JULIA_CUDA_USE_BINARYBUILDER="false"
 
 # Install NVIDIA libcuda and create driver mount directories:
 

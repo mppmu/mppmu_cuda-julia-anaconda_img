@@ -56,7 +56,7 @@ RUN true\
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
     && provisioning/install-sw.sh julia-bindist 1.3.1 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
-    && provisioning/install-sw.sh julia-bindist 1.4.0 /opt/julia-1.4 \
+    && provisioning/install-sw.sh julia-bindist 1.4.1 /opt/julia-1.4 \
     && (cd /opt/julia-1.4/bin && ln -s julia julia-1.4) \
     && (cd /opt && ln -s julia-1.4 julia)
 
@@ -148,7 +148,7 @@ ENV \
     PATH="/opt/nodejs/bin:$PATH" \
     MANPATH="/opt/nodejs/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh nodejs-bindist 12.14.1 /opt/nodejs
+RUN provisioning/install-sw.sh nodejs-bindist 12.16.2 /opt/nodejs
 
 
 # Install Java:

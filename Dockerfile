@@ -56,7 +56,7 @@ RUN true\
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
     && provisioning/install-sw.sh julia-bindist 1.3.1 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
-    && provisioning/install-sw.sh julia-bindist 1.4.1 /opt/julia-1.4 \
+    && provisioning/install-sw.sh julia-bindist 1.4.2 /opt/julia-1.4 \
     && (cd /opt/julia-1.4/bin && ln -s julia julia-1.4) \
     && (cd /opt && ln -s julia-1.4 julia)
 
@@ -135,9 +135,11 @@ RUN true \
 # Install Jupyter extensions:
 
 RUN true \
-    && conda install -y -c conda-forge rise \
-    && conda install -y -c conda-forge jupyter_contrib_nbextensions \
-    && pip install bash_kernel && JUPYTER_DATA_DIR="/opt/anaconda3/share/jupyter" python -m bash_kernel.install
+    && conda install -y -c conda-forge \
+        rise jupyter_contrib_nbextensions bash_kernel vega \
+        css-html-js-minify
+
+# css-html-js-minify required for Franklin.jl
 
 
 # Install Node.js:

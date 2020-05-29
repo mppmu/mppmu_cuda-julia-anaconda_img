@@ -146,7 +146,8 @@ RUN yum install -y \
     xdg-utils \
     xorg-x11-server-Xvfb \
     libXScrnSaver libXtst libxkbfile \
-    levien-inconsolata-fonts dejavu-sans-fonts
+    levien-inconsolata-fonts dejavu-sans-fonts \
+    zenity
 
 
 # Default profile environment settings:

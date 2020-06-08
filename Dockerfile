@@ -119,6 +119,12 @@ RUN true \
 # css-html-js-minify required for Franklin.jl
 
 
+# Install gnuplot (for Gaston.jl, etc.):
+
+RUN conda install -y -c conda-forge gnuplot
+
+
+
 # Install Node.js:
 
 COPY provisioning/install-sw-scripts/nodejs-* provisioning/install-sw-scripts/

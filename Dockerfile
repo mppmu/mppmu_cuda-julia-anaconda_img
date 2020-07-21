@@ -166,6 +166,7 @@ RUN yum install -y \
         nano vim \
         git-gui gitk \
         nmap-ncat \
+        ncurses-term \
         \
         http://linuxsoft.cern.ch/cern/centos/7/cern/x86_64/Packages/parallel-20150522-1.el7.cern.noarch.rpm
 

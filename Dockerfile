@@ -58,7 +58,7 @@ RUN true\
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
     && provisioning/install-sw.sh julia-bindist 1.4.2 /opt/julia-1.4 \
     && (cd /opt/julia-1.4/bin && ln -s julia julia-1.4) \
-    && provisioning/install-sw.sh julia-bindist 1.5.0-rc1 /opt/julia-1.5 \
+    && provisioning/install-sw.sh julia-bindist 1.5.0-rc2 /opt/julia-1.5 \
     && (cd /opt/julia-1.5/bin && ln -s julia julia-1.5) \
     && (cd /opt && ln -s julia-1.5 julia)
 
@@ -124,7 +124,7 @@ RUN true \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex inkscape \
-    && provisioning/install-sw.sh anaconda3 2020.02 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2020.07 /opt/anaconda3
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires
@@ -153,7 +153,7 @@ ENV \
     PATH="/opt/nodejs/bin:$PATH" \
     MANPATH="/opt/nodejs/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh nodejs-bindist 12.18.2 /opt/nodejs
+RUN provisioning/install-sw.sh nodejs-bindist 12.18.3 /opt/nodejs
 
 
 # Install Java:
@@ -191,6 +191,7 @@ RUN yum install -y \
         nano vim \
         git-gui gitk \
         nmap-ncat \
+        ncurses-term \
         \
         http://linuxsoft.cern.ch/cern/centos/7/cern/x86_64/Packages/parallel-20150522-1.el7.cern.noarch.rpm
 

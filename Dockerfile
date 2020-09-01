@@ -38,7 +38,7 @@ ENV \
     PATH="/opt/cmake/bin:$PATH" \
     MANPATH="/opt/cmake/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh cmake 3.16.3 /opt/cmake
+RUN provisioning/install-sw.sh cmake 3.18.2 /opt/cmake
 
 
 # Install Julia:
@@ -46,7 +46,7 @@ RUN provisioning/install-sw.sh cmake 3.16.3 /opt/cmake
 COPY provisioning/install-sw-scripts/julia-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/julia/bin:/opt/julia-1.5/bin:/opt/julia/bin:/opt/julia-1.4/bin:/opt/julia-1.3/bin:/opt/julia-1.0/bin:$PATH" \
+    PATH="/opt/julia/bin:/opt/julia-1.5/bin:/opt/julia-1.3/bin:/opt/julia-1.0/bin:$PATH" \
     MANPATH="/opt/julia/share/man:$MANPATH"
 
 RUN true\
@@ -56,9 +56,7 @@ RUN true\
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
     && provisioning/install-sw.sh julia-bindist 1.3.1 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
-    && provisioning/install-sw.sh julia-bindist 1.4.2 /opt/julia-1.4 \
-    && (cd /opt/julia-1.4/bin && ln -s julia julia-1.4) \
-    && provisioning/install-sw.sh julia-bindist 1.5.0-rc2 /opt/julia-1.5 \
+    && provisioning/install-sw.sh julia-bindist 1.5.1 /opt/julia-1.5 \
     && (cd /opt/julia-1.5/bin && ln -s julia julia-1.5) \
     && (cd /opt && ln -s julia-1.5 julia)
 

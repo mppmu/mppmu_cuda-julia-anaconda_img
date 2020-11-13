@@ -86,19 +86,6 @@ ENV \
     LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/nvvm/lib64:$LD_LIBRARY_PATH" \
     JULIA_CUDA_USE_BINARYBUILDER="false"
 
-# Install NVIDIA libcuda and create driver mount directories:
-
-COPY provisioning/install-sw-scripts/nvidia-* provisioning/install-sw-scripts/
-
-RUN true \
-    && mkdir -p /usr/local/nvidia /etc/OpenCL/vendors \
-    && provisioning/install-sw.sh nvidia-libcuda 455.38 /usr/lib64
-
-# Note: Installed libcuda.so.1 only acts as a kind of stub. To run GPU code,
-# NVIDIA driver libs must be mounted in from host to "/usr/local/nvidia"
-# (e.g. via nvidia-docker or manually). OpenCL icd directory
-# "/etc/OpenCL/vendors" should be mounted in from host as well.
-
 
 # Install Nvidia visual profiler:
 

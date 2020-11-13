@@ -12,7 +12,7 @@ pkg_install() {
     CURRDIR=`pwd`
     mkdir -p "${INSTALL_PREFIX}"
     cd "NVIDIA-Linux-x86_64-${PACKAGE_VERSION}"
-    cp -a "libcuda.so.${PACKAGE_VERSION}" "libnvidia-fatbinaryloader.so.${PACKAGE_VERSION}" "${INSTALL_PREFIX}/"
+    cp -a "libcuda.so.${PACKAGE_VERSION}" "${INSTALL_PREFIX}/"
     (cd "${INSTALL_PREFIX}" && ln -s "libcuda.so.${PACKAGE_VERSION}" "libcuda.so.1")
     (cd "${INSTALL_PREFIX}" && ln -s "libcuda.so.${PACKAGE_VERSION}" "libcuda.so")
 }

@@ -46,7 +46,7 @@ RUN provisioning/install-sw.sh cmake 3.18.2 /opt/cmake
 COPY provisioning/install-sw-scripts/julia-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/julia/bin:/opt/julia-1.5/bin:/opt/julia-1.3/bin:/opt/julia-1.0/bin:$PATH" \
+    PATH="/opt/julia/bin:/opt/julia-1.6/bin:/opt/julia-1.5/bin:/opt/julia-1.3/bin:/opt/julia-1.0/bin:$PATH" \
     MANPATH="/opt/julia/share/man:$MANPATH"
 
 RUN true\
@@ -58,7 +58,9 @@ RUN true\
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
     && provisioning/install-sw.sh julia-bindist 1.5.3 /opt/julia-1.5 \
     && (cd /opt/julia-1.5/bin && ln -s julia julia-1.5) \
-    && (cd /opt && ln -s julia-1.5 julia)
+    && provisioning/install-sw.sh julia-bindist 1.6.0-beta1 /opt/julia-1.6 \
+    && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
+    && (cd /opt && ln -s julia-1.6 julia)
 
 
 # Install depencencies of common Julia packages:

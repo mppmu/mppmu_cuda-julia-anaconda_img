@@ -89,9 +89,10 @@ COPY provisioning/install-sw-scripts/anaconda3-* provisioning/install-sw-scripts
 ENV \
     PATH="/opt/anaconda3/bin:$PATH" \
     MANPATH="/opt/anaconda3/share/man:$MANPATH" \
-    JUPYTER=jupyter
+    PYTHON="python3" \
+    JUPYTER="jupyter"
 
-    # JUPYTER environment variable used by IJulia to detect Jupyter installation
+    # PYTHON and JUPYTER environment variables for PyCall.jl and IJulia.jl
 
 RUN true \
     && yum install -y \
@@ -99,7 +100,7 @@ RUN true \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex inkscape \
-    && provisioning/install-sw.sh anaconda3 2020.07 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires

@@ -50,7 +50,7 @@ RUN provisioning/install-sw.sh cmake 3.18.2 /opt/cmake
 COPY provisioning/install-sw-scripts/julia-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/julia/bin:/opt/julia-1.5/bin:/opt/julia-1.3/bin:/opt/julia-1.0/bin:$PATH" \
+    PATH="/opt/julia/bin:/opt/julia-1.6/bin:/opt/julia-1.5/bin:/opt/julia-1.3/bin:/opt/julia-1.0/bin:$PATH" \
     MANPATH="/opt/julia/share/man:$MANPATH"
 
 RUN true\
@@ -62,7 +62,9 @@ RUN true\
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
     && provisioning/install-sw.sh julia-bindist 1.5.3 /opt/julia-1.5 \
     && (cd /opt/julia-1.5/bin && ln -s julia julia-1.5) \
-    && (cd /opt && ln -s julia-1.5 julia)
+    && provisioning/install-sw.sh julia-bindist 1.6.0-beta1 /opt/julia-1.6 \
+    && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
+    && (cd /opt && ln -s julia-1.6 julia)
 
 
 # Install depencencies of common Julia packages:
@@ -103,9 +105,10 @@ COPY provisioning/install-sw-scripts/anaconda3-* provisioning/install-sw-scripts
 ENV \
     PATH="/opt/anaconda3/bin:$PATH" \
     MANPATH="/opt/anaconda3/share/man:$MANPATH" \
-    JUPYTER=jupyter
+    PYTHON="python3" \
+    JUPYTER="jupyter"
 
-    # JUPYTER environment variable used by IJulia to detect Jupyter installation
+    # PYTHON and JUPYTER environment variables for PyCall.jl and IJulia.jl
 
 RUN true \
     && yum install -y \
@@ -113,7 +116,7 @@ RUN true \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex inkscape \
-    && provisioning/install-sw.sh anaconda3 2020.07 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires

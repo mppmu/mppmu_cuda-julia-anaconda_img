@@ -62,7 +62,7 @@ RUN true\
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
     && provisioning/install-sw.sh julia-bindist 1.5.3 /opt/julia-1.5 \
     && (cd /opt/julia-1.5/bin && ln -s julia julia-1.5) \
-    && provisioning/install-sw.sh julia-bindist 1.6.0-beta1 /opt/julia-1.6 \
+    && provisioning/install-sw.sh julia-bindist 1.6.0-rc1 /opt/julia-1.6 \
     && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
     && (cd /opt && ln -s julia-1.6 julia)
 
@@ -98,13 +98,16 @@ ENV \
 RUN yum install -y cuda-nvvp-11-2
 
 
-# Install Anaconda3:
+# Install Anaconda3 and Mamba:
 
 COPY provisioning/install-sw-scripts/anaconda3-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/anaconda3/bin:$PATH" \
+    PATH="/opt/anaconda3/bin:/opt/anaconda3/condabin:$PATH" \
     MANPATH="/opt/anaconda3/share/man:$MANPATH" \
+    CONDA_EXE="/opt/anaconda3/bin/conda" \
+    CONDA_PREFIX="/opt/anaconda3" \
+    CONDA_PYTHON_EXE="/opt/anaconda3/bin/python" \
     PYTHON="python3" \
     JUPYTER="jupyter"
 
@@ -116,7 +119,9 @@ RUN true \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex inkscape \
-    && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3 \
+    && conda install -y --freeze-installed -c conda-forge mamba
+
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires
@@ -126,12 +131,13 @@ RUN true \
     && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
-# Install Jupyter extensions:
+# Install Jupyter extensions and code-server:
 
 RUN true \
-    && conda install -y -c conda-forge \
+    && mamba install -y -c conda-forge \
         rise jupyter_contrib_nbextensions bash_kernel vega \
-        css-html-js-minify
+        css-html-js-minify \
+        jupyter-server-proxy code-server
 
 # css-html-js-minify required for Franklin.jl
 
@@ -166,6 +172,12 @@ RUN yum install -y \
     libXScrnSaver libXtst libxkbfile \
     levien-inconsolata-fonts dejavu-sans-fonts \
     zenity
+
+
+# Install Visual Studio Code Live Share dependencies:
+
+RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs
+# See https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/linux#details-on-required-libraries
 
 
 # Default profile environment settings:

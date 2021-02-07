@@ -158,6 +158,12 @@ RUN yum install -y \
     zenity
 
 
+# Install Visual Studio Code Live Share dependencies:
+
+RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs
+# See https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/linux#details-on-required-libraries
+
+
 # Default profile environment settings:
 
 ENV \

@@ -82,7 +82,7 @@ RUN true \
     && yum install -y ffmpeg ffmpeg-devel
 
 
-# Install Anaconda3:
+# Install Anaconda3 and Mamba:
 
 COPY provisioning/install-sw-scripts/anaconda3-* provisioning/install-sw-scripts/
 
@@ -103,7 +103,9 @@ RUN true \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
         texlive-ulem texlive-xetex inkscape \
-    && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3 \
+    && conda install -y --freeze-installed -c conda-forge mamba
+
 
 # Override some system libraries with Anaconda versions when used from Julia,
 # to resolve library version conflicts (ZMQ.jl, e.g., currently requires
@@ -116,7 +118,7 @@ RUN true \
 # Install Jupyter extensions:
 
 RUN true \
-    && conda install -y -c conda-forge \
+    && mamba install -y -c conda-forge \
         rise jupyter_contrib_nbextensions bash_kernel vega \
         css-html-js-minify
 

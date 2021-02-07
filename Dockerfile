@@ -87,8 +87,11 @@ RUN true \
 COPY provisioning/install-sw-scripts/anaconda3-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/anaconda3/bin:$PATH" \
+    PATH="/opt/anaconda3/bin:/opt/anaconda3/condabin:$PATH" \
     MANPATH="/opt/anaconda3/share/man:$MANPATH" \
+    CONDA_EXE="/opt/anaconda3/bin/conda" \
+    CONDA_PREFIX="/opt/anaconda3" \
+    CONDA_PYTHON_EXE="/opt/anaconda3/bin/python" \
     PYTHON="python3" \
     JUPYTER="jupyter"
 

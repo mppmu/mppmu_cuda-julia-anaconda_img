@@ -115,12 +115,13 @@ RUN true \
     && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
-# Install Jupyter extensions:
+# Install Jupyter extensions and code-server:
 
 RUN true \
     && mamba install -y -c conda-forge \
         rise jupyter_contrib_nbextensions bash_kernel vega \
-        css-html-js-minify
+        css-html-js-minify \
+        jupyter-server-proxy code-server
 
 # css-html-js-minify required for Franklin.jl
 

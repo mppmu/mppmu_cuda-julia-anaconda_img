@@ -101,8 +101,6 @@ RUN true \
     && yum install -y \
         fdupes \
         libXdmcp \
-        texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
-        texlive-ulem texlive-xetex texlive-epstopdf inkscape \
     && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3 \
     && conda install -y --freeze-installed -c conda-forge mamba
 
@@ -125,6 +123,10 @@ RUN true \
 
 # css-html-js-minify required for Franklin.jl
 
+
+# Install LaTeX (for Juypter PDF export and direct use):
+RUN yum install -y texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox \
+    texlive-upquote texlive-ulem texlive-xetex texlive-epstopdf inkscape
 
 
 # Install Node.js:

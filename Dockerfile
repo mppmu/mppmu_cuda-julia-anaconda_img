@@ -160,6 +160,15 @@ RUN yum install -y \
     zenity
 
 
+# Install VirtualGL:
+
+RUN yum install -y \
+    https://sourceforge.net/projects/virtualgl/files/2.6.5/VirtualGL-2.6.5.x86_64.rpm \
+    https://sourceforge.net/projects/virtualgl/files/2.6.5/VirtualGL-debuginfo-2.6.5.x86_64.rpm \
+    https://sourceforge.net/projects/turbovnc/files/2.2.6/turbovnc-2.2.6.x86_64.rpm \
+    https://sourceforge.net/projects/turbovnc/files/2.2.6/turbovnc-debuginfo-2.2.6.i386.rpm
+
+
 # Install Visual Studio Code Live Share dependencies:
 
 RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs

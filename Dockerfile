@@ -102,7 +102,7 @@ RUN true \
         fdupes \
         libXdmcp \
         texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
-        texlive-ulem texlive-xetex inkscape \
+        texlive-ulem texlive-xetex texlive-epstopdf inkscape \
     && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3 \
     && conda install -y --freeze-installed -c conda-forge mamba
 

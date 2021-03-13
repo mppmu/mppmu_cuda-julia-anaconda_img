@@ -1,7 +1,4 @@
-FROM nvidia/cuda:11.2.0-devel-centos7
-
-# Not part of NVIDIA CUDA 11.2 docker images:
-RUN yum install -y libcudnn8-devel
+FROM nvidia/cuda:11.2.0-cudnn8-devel-centos7
 
 
 # User and workdir settings:

@@ -57,9 +57,9 @@ RUN true\
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
     && provisioning/install-sw.sh julia-bindist 1.3.1 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
-    && provisioning/install-sw.sh julia-bindist 1.5.3 /opt/julia-1.5 \
+    && provisioning/install-sw.sh julia-bindist 1.5.4 /opt/julia-1.5 \
     && (cd /opt/julia-1.5/bin && ln -s julia julia-1.5) \
-    && provisioning/install-sw.sh julia-bindist 1.6.0-rc1 /opt/julia-1.6 \
+    && provisioning/install-sw.sh julia-bindist 1.6.0-rc2 /opt/julia-1.6 \
     && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
     && (cd /opt && ln -s julia-1.6 julia)
 
@@ -114,8 +114,6 @@ RUN true \
     && yum install -y \
         fdupes \
         libXdmcp \
-        texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox texlive-upquote \
-        texlive-ulem texlive-xetex inkscape \
     && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3 \
     && conda install -y --freeze-installed -c conda-forge mamba
 
@@ -138,6 +136,10 @@ RUN true \
 
 # css-html-js-minify required for Franklin.jl
 
+
+# Install LaTeX (for Juypter PDF export and direct use):
+RUN yum install -y texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox \
+    texlive-upquote texlive-ulem texlive-xetex texlive-epstopdf inkscape
 
 
 # Install Node.js:
@@ -169,6 +171,15 @@ RUN yum install -y \
     libXScrnSaver libXtst libxkbfile \
     levien-inconsolata-fonts dejavu-sans-fonts \
     zenity
+
+
+# Install VirtualGL:
+
+RUN yum install -y \
+    https://sourceforge.net/projects/virtualgl/files/2.6.5/VirtualGL-2.6.5.x86_64.rpm \
+    https://sourceforge.net/projects/virtualgl/files/2.6.5/VirtualGL-debuginfo-2.6.5.x86_64.rpm \
+    https://sourceforge.net/projects/turbovnc/files/2.2.6/turbovnc-2.2.6.x86_64.rpm \
+    https://sourceforge.net/projects/turbovnc/files/2.2.6/turbovnc-debuginfo-2.2.6.i386.rpm
 
 
 # Install Visual Studio Code Live Share dependencies:

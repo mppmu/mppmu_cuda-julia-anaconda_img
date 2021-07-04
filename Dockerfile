@@ -101,8 +101,7 @@ RUN true \
     && yum install -y \
         fdupes \
         libXdmcp \
-    && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3 \
-    && conda install -y --freeze-installed -c conda-forge mamba
+    && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3
 
 
 # Override some system libraries with Anaconda versions when used from Julia,

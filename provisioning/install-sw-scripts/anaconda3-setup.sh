@@ -19,6 +19,10 @@ pkg_install() {
 
     mkdir "${INSTALL_PREFIX}/devbin"
     mv "${INSTALL_PREFIX}/bin"/*-config "${INSTALL_PREFIX}/devbin"
+
+    # Install mamba via micromamba since conda solver takes ages or fails to do it:
+    wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+    bin/micromamba -r "${INSTALL_PREFIX}" install -y mamba -n base -c conda-forge
 }
 
 

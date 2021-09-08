@@ -114,7 +114,7 @@ RUN true \
     && yum install -y \
         fdupes \
         libXdmcp \
-    && provisioning/install-sw.sh anaconda3 2020.11 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2021.05 /opt/anaconda3
 
 
 # Override some system libraries with Anaconda versions when used from Julia,

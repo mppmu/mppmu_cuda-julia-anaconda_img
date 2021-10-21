@@ -68,19 +68,7 @@ RUN true\
 
 RUN true \
     && yum install -y \
-        libgfortran4 \
-        ImageMagick zeromq-devel \
-        libXt libXrender libXext mesa-libGL \
-        gtk2 gtk3 qt5-qtbase-gui glfw libxkbcommon-x11 \
-        gsl-devel fftw-devel unixODBC
-
-
-# Install ffmpeg (for Plots.jl animations, Makie.jl, etc.):
-
-RUN true \
-    && rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro \
-    && rpm -ivh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm \
-    && yum install -y ffmpeg ffmpeg-devel
+        gnuplot
 
 
 # Add CUDA libraries to LD_LIBRARY_PATH:

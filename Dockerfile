@@ -119,7 +119,8 @@ RUN true \
     && mamba install -y -c conda-forge \
         rise jupyter_contrib_nbextensions bash_kernel vega \
         css-html-js-minify \
-        jupyter-server-proxy code-server
+        jupyter-server-proxy code-server \
+        jupytext
 
 # css-html-js-minify required for Franklin.jl
 

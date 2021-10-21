@@ -113,14 +113,16 @@ RUN true \
     && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
-# Install Jupyter extensions and code-server:
+# Install Jupyter extensions, jupytext, code-server and cffconvert:
 
 RUN true \
     && mamba install -y -c conda-forge \
         rise jupyter_contrib_nbextensions bash_kernel vega \
         css-html-js-minify \
-        jupyter-server-proxy code-server \
-        jupytext
+        jupyter-server-proxy jupytext \
+        code-server \
+    && mamba install -c conda-forge click docopt pykwalify ruamel.yaml && pip3 install cffconvert
+
 
 # css-html-js-minify required for Franklin.jl
 

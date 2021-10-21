@@ -80,7 +80,7 @@ ENV \
 
 # Install Nvidia visual profiler:
 
-RUN yum install -y cuda-nvvp-11-3
+RUN yum install -y cuda-nvvp-11-3 cuda-nsight-11-3
 
 
 # Install Anaconda3 and Mamba:

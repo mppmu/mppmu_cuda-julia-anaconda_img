@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.3.0-cudnn8-devel-centos7
+FROM nvidia/cuda:11.3.1-cudnn8-devel-centos7
 
 
 # User and workdir settings:

@@ -57,9 +57,9 @@ RUN true\
     && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
     && provisioning/install-sw.sh julia-bindist 1.3.1 /opt/julia-1.3 \
     && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
-    && provisioning/install-sw.sh julia-bindist 1.6.3 /opt/julia-1.6 \
+    && provisioning/install-sw.sh julia-bindist 1.6.4 /opt/julia-1.6 \
     && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
-    && provisioning/install-sw.sh julia-bindist 1.7.0-rc2 /opt/julia-1.7 \
+    && provisioning/install-sw.sh julia-bindist 1.7.0-rc3 /opt/julia-1.7 \
     && (cd /opt/julia-1.7/bin && ln -s julia julia-1.7) \
     && (cd /opt && ln -s julia-1.7 julia)
 
@@ -178,6 +178,11 @@ RUN yum install -y \
 
 RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs
 # See https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/linux#details-on-required-libraries
+
+
+# Install code server:
+
+RUN yum install -y https://github.com/cdr/code-server/releases/download/v3.12.0/code-server-3.12.0-amd64.rpm
 
 
 # Default profile environment settings:

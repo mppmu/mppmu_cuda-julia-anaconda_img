@@ -113,14 +113,13 @@ RUN true \
     && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
-# Install Jupyter extensions, jupytext, code-server and cffconvert:
+# Install Jupyter extensions, jupytext and cffconvert:
 
 RUN true \
     && mamba install -y -c conda-forge \
         rise jupyter_contrib_nbextensions bash_kernel vega \
         css-html-js-minify \
         jupyter-server-proxy jupytext \
-        code-server \
     && mamba install -c conda-forge click docopt pykwalify ruamel.yaml && pip3 install cffconvert \
     && mamba install -y matplotlib=3.4 \
     && pip3 install webio_jupyter_extension
@@ -180,7 +179,7 @@ RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vs
 # See https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/linux#details-on-required-libraries
 
 
-# Install code server:
+# Install code-server:
 
 RUN yum install -y https://github.com/cdr/code-server/releases/download/v3.12.0/code-server-3.12.0-amd64.rpm
 

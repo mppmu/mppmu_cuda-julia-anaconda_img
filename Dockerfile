@@ -108,6 +108,7 @@ RUN true \
         rise jupyter_contrib_nbextensions bash_kernel vega \
         css-html-js-minify \
         jupyter-server-proxy jupytext \
+        ipympl \
     && mamba install -c conda-forge click docopt pykwalify ruamel.yaml && pip3 install cffconvert \
     && mamba install -y matplotlib=3.4 \
     && pip3 install webio_jupyter_extension

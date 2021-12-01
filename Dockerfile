@@ -47,19 +47,15 @@ RUN provisioning/install-sw.sh cmake 3.16.3 /opt/cmake
 COPY provisioning/install-sw-scripts/julia-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/julia/bin:/opt/julia-1.7/bin:/opt/julia/bin:/opt/julia-1.6/bin:/opt/julia-1.3/bin:/opt/julia-1.0/bin:$PATH" \
+    PATH="/opt/julia/bin:/opt/julia-1.7/bin:/opt/julia/bin:/opt/julia-1.6/bin:$PATH" \
     MANPATH="/opt/julia/share/man:$MANPATH"
 
 RUN true\
     && yum install -y \
         which libedit-devel ncurses-devel openssl openssl-devel symlinks \
-    && provisioning/install-sw.sh julia-bindist 1.0.5 /opt/julia-1.0 \
-    && (cd /opt/julia-1.0/bin && ln -s julia julia-1.0) \
-    && provisioning/install-sw.sh julia-bindist 1.3.1 /opt/julia-1.3 \
-    && (cd /opt/julia-1.3/bin && ln -s julia julia-1.3) \
     && provisioning/install-sw.sh julia-bindist 1.6.4 /opt/julia-1.6 \
     && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
-    && provisioning/install-sw.sh julia-bindist 1.7.0-rc3 /opt/julia-1.7 \
+    && provisioning/install-sw.sh julia-bindist 1.7.0 /opt/julia-1.7 \
     && (cd /opt/julia-1.7/bin && ln -s julia julia-1.7) \
     && (cd /opt && ln -s julia-1.7 julia)
 
@@ -103,14 +99,6 @@ RUN true \
         fdupes \
         libXdmcp \
     && provisioning/install-sw.sh anaconda3 2021.05 /opt/anaconda3
-
-
-# Override some system libraries with Anaconda versions when used from Julia,
-# to resolve library version conflicts (ZMQ.jl, e.g., currently requires
-# GLIBCXX_3.4.20, matplotlib needs CXXABI_1.3.9 and a more recent libz).
-# Not required for Julia >=v1.3.0-rc4 (brings it's own libz).
-RUN true \
-    && ln -s /opt/anaconda3/lib/libz.so.1* /opt/julia-1.0/lib/julia
 
 
 # Install Jupyter extensions, jupytext and cffconvert:

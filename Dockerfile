@@ -1,6 +1,12 @@
 FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
 
 
+# Select bash as default shell to prevent errors in "/.singularity.d/actions/shell":
+RUN true \
+    && echo "dash dash/sh boolean false" | debconf-set-selections \
+    && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+
+
 # User and workdir settings:
 
 USER root

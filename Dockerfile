@@ -99,7 +99,7 @@ RUN true \
     && apt-get update && apt-get install -y \
         fdupes libxdmcp6 \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && provisioning/install-sw.sh anaconda3 2021.05 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2021.11 /opt/anaconda3
 
 
 # Install Jupyter extensions, jupytext and cffconvert:
@@ -111,7 +111,6 @@ RUN true \
         jupyter-server-proxy jupytext \
         ipympl \
     && mamba install -c conda-forge click docopt pykwalify ruamel.yaml && pip3 install cffconvert \
-    && mamba install -y matplotlib=3.4 \
     && pip3 install webio_jupyter_extension
 
     # css-html-js-minify required for Franklin.jl

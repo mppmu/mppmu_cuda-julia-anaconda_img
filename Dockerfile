@@ -170,7 +170,7 @@ RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vs
 
 # Install code-server:
 
-RUN yum install -y https://github.com/cdr/code-server/releases/download/v3.12.0/code-server-3.12.0-amd64.rpm
+RUN yum install -y https://github.com/coder/code-server/releases/download/v4.0.1/code-server-4.0.1-amd64.rpm
 
 
 # Default profile environment settings:

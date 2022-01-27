@@ -122,7 +122,7 @@ RUN true \
 RUN apt-get update && apt-get install -y \
         texlive texlive-latex-extra texlive-extra-utils texlive-science \
         texlive-fonts-extra texlive-bibtex-extra texlive-pstricks latexmk \
-        biber feynmf latexdiff dvipng texlive-xetex pdf2svg \
+        biber feynmf latexdiff dvipng texlive-xetex pdf2svg cm-super \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 

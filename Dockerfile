@@ -67,14 +67,16 @@ COPY provisioning/install-sw.sh /root/provisioning/
 COPY provisioning/install-sw-scripts/julia-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/julia/bin:/opt/julia-1.7/bin:/opt/julia/bin:/opt/julia-1.6/bin:$PATH" \
+    PATH="/opt/julia/bin:/opt/julia-1.8/bin:/opt/julia-1.7/bin:/opt/julia-1.6/bin:$PATH" \
     MANPATH="/opt/julia/share/man:$MANPATH"
 
 RUN true\
-    && provisioning/install-sw.sh julia-bindist 1.6.5 /opt/julia-1.6 \
+    && provisioning/install-sw.sh julia-bindist 1.6.6 /opt/julia-1.6 \
     && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
-    && provisioning/install-sw.sh julia-bindist 1.7.1 /opt/julia-1.7 \
+    && provisioning/install-sw.sh julia-bindist 1.7.2 /opt/julia-1.7 \
     && (cd /opt/julia-1.7/bin && ln -s julia julia-1.7) \
+    && provisioning/install-sw.sh julia-bindist 1.8.0-beta3 /opt/julia-1.8 \
+    && (cd /opt/julia-1.8/bin && ln -s julia julia-1.8) \
     && (cd /opt && ln -s julia-1.7 julia)
 
 

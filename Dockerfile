@@ -23,6 +23,7 @@ RUN true \
         git svn \
         lsb-core-noarch \
         numactl \
+        tmux \
     && dbus-uuidgen > /etc/machine-id
 
 

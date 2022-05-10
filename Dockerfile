@@ -1,4 +1,10 @@
-FROM nvidia/cuda:11.3.1-cudnn8-devel-centos7
+FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
+
+
+# Select bash as default shell to prevent errors in "/.singularity.d/actions/shell":
+RUN true \
+    && echo "dash dash/sh boolean false" | debconf-set-selections \
+    && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
 
 # User and workdir settings:
@@ -7,40 +13,53 @@ USER root
 WORKDIR /root
 
 
-# Install yum/RPM packages:
+# Install system packages:
 
-COPY provisioning/wandisco-centos7-git.repo /etc/yum.repos.d/wandisco-git.repo
+RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
+    && sed -i 's/apt-get upgrade$/apt-get upgrade -y/' `which unminimize` \
+    && (echo y | unminimize) \
+    && apt-get update \
+	&& apt-get install -y --no-install-recommends ca-certificates \
+    && apt-get install -y locales && locale-gen en_US.UTF-8 \
+    && apt-get install -y \
+        less \
+        rsync \
+        wget curl \
+        nano vim \
+        bzip2 \
+        aptitude \
+        \
+        perl \
+        \
+        screen tmux parallel mc \
+        \
+        git \
+        build-essential autoconf cmake pkg-config gfortran \
+        libedit-dev libncurses-dev openssl libssl-dev symlinks \
+        debhelper dh-autoreconf help2man libarchive-dev python \
+        squashfs-tools \
+        \
+    && apt-get install -y --no-install-recommends gnuplot \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN true \
-    && sed -i '/tsflags=nodocs/d' /etc/yum.conf \
-    && yum install -y \
-        epel-release \
-    && yum groupinstall -y \
-        "Development Tools" \
-    && yum install -y \
-        wget curl rsync \
-        p7zip \
-        git svn \
-        lsb-core-noarch \
-        numactl \
-        tmux \
-    && dbus-uuidgen > /etc/machine-id
+
+# Install Nvidia visual profilers:
+
+RUN apt-get update && apt-get install -y \
+        cuda-nsight-11-3 cuda-nvvp-11-3 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
+# Add CUDA libraries to LD_LIBRARY_PATH:
+
+ENV \
+    LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/nvvm/lib64:$LD_LIBRARY_PATH" \
+    JULIA_CUDA_USE_BINARYBUILDER="false"
 
 
 # Copy provisioning script(s):
 
 COPY provisioning/install-sw.sh /root/provisioning/
-
-
-# Install CMake:
-
-COPY provisioning/install-sw-scripts/cmake-* provisioning/install-sw-scripts/
-
-ENV \
-    PATH="/opt/cmake/bin:$PATH" \
-    MANPATH="/opt/cmake/share/man:$MANPATH"
-
-RUN provisioning/install-sw.sh cmake 3.16.3 /opt/cmake
 
 
 # Install Julia:
@@ -52,8 +71,6 @@ ENV \
     MANPATH="/opt/julia/share/man:$MANPATH"
 
 RUN true\
-    && yum install -y \
-        which libedit-devel ncurses-devel openssl openssl-devel symlinks \
     && provisioning/install-sw.sh julia-bindist 1.6.6 /opt/julia-1.6 \
     && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
     && provisioning/install-sw.sh julia-bindist 1.7.2 /opt/julia-1.7 \
@@ -61,25 +78,6 @@ RUN true\
     && provisioning/install-sw.sh julia-bindist 1.8.0-beta3 /opt/julia-1.8 \
     && (cd /opt/julia-1.8/bin && ln -s julia julia-1.8) \
     && (cd /opt && ln -s julia-1.7 julia)
-
-
-# Install depencencies of common Julia packages:
-
-RUN true \
-    && yum install -y \
-        gnuplot
-
-
-# Add CUDA libraries to LD_LIBRARY_PATH:
-
-ENV \
-    LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/nvvm/lib64:$LD_LIBRARY_PATH" \
-    JULIA_CUDA_USE_BINARYBUILDER="false"
-
-
-# Install Nvidia visual profiler:
-
-RUN yum install -y cuda-nvvp-11-3 cuda-nsight-11-3
 
 
 # Install Anaconda3 and Mamba:
@@ -98,10 +96,10 @@ ENV \
     # PYTHON and JUPYTER environment variables for PyCall.jl and IJulia.jl
 
 RUN true \
-    && yum install -y \
-        fdupes \
-        libXdmcp \
-    && provisioning/install-sw.sh anaconda3 2021.05 /opt/anaconda3
+    && apt-get update && apt-get install -y \
+        fdupes libxdmcp6 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+    && provisioning/install-sw.sh anaconda3 2021.11 /opt/anaconda3
 
 
 # Install Jupyter extensions, jupytext and cffconvert:
@@ -113,16 +111,19 @@ RUN true \
         jupyter-server-proxy jupytext \
         ipympl \
     && mamba install -c conda-forge click docopt pykwalify ruamel.yaml && pip3 install cffconvert \
-    && mamba install -y matplotlib=3.4 \
+    && mamba install -y numba=0.55 \
     && pip3 install webio_jupyter_extension
 
-
-# css-html-js-minify required for Franklin.jl
+    # css-html-js-minify required for Franklin.jl
 
 
 # Install LaTeX (for Juypter PDF export and direct use):
-RUN yum install -y texlive-collection-latexrecommended texlive-dvipng texlive-adjustbox \
-    texlive-upquote texlive-ulem texlive-xetex texlive-epstopdf inkscape
+
+RUN apt-get update && apt-get install -y \
+        texlive texlive-latex-extra texlive-extra-utils texlive-science \
+        texlive-fonts-extra texlive-bibtex-extra texlive-pstricks latexmk \
+        biber feynmf latexdiff dvipng texlive-xetex pdf2svg cm-super \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 # Install Node.js:
@@ -139,42 +140,57 @@ RUN provisioning/install-sw.sh nodejs-bindist 16.13.2 /opt/nodejs
 # Install Java:
 
 # JavaCall.jl needs JAVA_HOME to locate libjvm.so:
-ENV JAVA_HOME="/usr/lib/jvm/java"
+ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 
-RUN yum install -y \
-        java-1.8.0-openjdk-devel
+RUN true \
+    && apt-get update \
+    && apt-get install -y software-properties-common \
+    && add-apt-repository -y ppa:openjdk-r/ppa \
+    && apt-get update \
+    && apt-get install -y openjdk-11-jdk \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 # Install support for GUI applications:
 
-RUN yum install -y \
-    xorg-x11-server-utils mesa-dri-drivers glx-utils \
-    xdg-utils \
-    xorg-x11-server-Xvfb \
-    libXScrnSaver libXtst libxkbfile \
-    levien-inconsolata-fonts dejavu-sans-fonts \
-    zenity
+RUN apt-get update && apt-get install -y \
+        x11-xserver-utils mesa-utils \
+        libglu1-mesa libegl1-mesa \
+        xdg-utils \
+        xvfb \
+        libxss-dev libxtst-dev libxkbfile-dev \
+        fonts-inconsolata fonts-dejavu \
+        zenity \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 # Install VirtualGL:
 
-RUN yum install -y \
-    https://sourceforge.net/projects/virtualgl/files/2.6.5/VirtualGL-2.6.5.x86_64.rpm \
-    https://sourceforge.net/projects/virtualgl/files/2.6.5/VirtualGL-debuginfo-2.6.5.x86_64.rpm \
-    https://sourceforge.net/projects/turbovnc/files/2.2.6/turbovnc-2.2.6.x86_64.rpm \
-    https://sourceforge.net/projects/turbovnc/files/2.2.6/turbovnc-debuginfo-2.2.6.i386.rpm
+RUN apt-get update && apt-get install -y \
+        libglu1-mesa libegl1-mesa \
+    && wget \
+        https://sourceforge.net/projects/virtualgl/files/3.0/virtualgl_3.0_amd64.deb \
+        https://sourceforge.net/projects/turbovnc/files/2.2.6/turbovnc_2.2.6_amd64.deb \
+    && dpkg -i virtualgl_3.0_amd64.deb turbovnc_2.2.6_amd64.deb \
+    && rm virtualgl_3.0_amd64.deb turbovnc_2.2.6_amd64.deb \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 # Install Visual Studio Code Live Share dependencies:
 
-RUN wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs
+RUN true \
+    && wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # See https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/linux#details-on-required-libraries
 
 
 # Install code-server:
 
-RUN yum install -y https://github.com/coder/code-server/releases/download/v4.0.1/code-server-4.0.1-amd64.rpm
-
+RUN true \
+    && wget https://github.com/coder/code-server/releases/download/v4.0.1/code-server_4.0.1_amd64.deb \
+    && dpkg -i code-server_4.0.1_amd64.deb \
+    && rm code-server_4.0.1_amd64.deb
 
 # Default profile environment settings:
 
@@ -185,21 +201,14 @@ ENV \
 
 # Install additional packages:
 
-RUN yum install -y \
-        \
+RUN apt-get update && apt-get install -y \
         htop nmon \
         nano vim \
         git-gui gitk \
-        nmap-ncat \
+        ncat netcat \
         ncurses-term \
-        \
-        http://linuxsoft.cern.ch/cern/centos/7/cern/x86_64/Packages/parallel-20150522-1.el7.cern.noarch.rpm
-
-
-# Clean up:
-
-RUN true \
-    && yum clean all
+        parallel \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 # Final steps

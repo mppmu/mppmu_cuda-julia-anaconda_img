@@ -168,10 +168,10 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
         libglu1-mesa libegl1-mesa \
     && wget \
-        https://sourceforge.net/projects/virtualgl/files/3.0/virtualgl_3.0_amd64.deb \
-        https://sourceforge.net/projects/turbovnc/files/2.2.6/turbovnc_2.2.6_amd64.deb \
-    && dpkg -i virtualgl_3.0_amd64.deb turbovnc_2.2.6_amd64.deb \
-    && rm virtualgl_3.0_amd64.deb turbovnc_2.2.6_amd64.deb \
+        https://sourceforge.net/projects/virtualgl/files/3.0.1/virtualgl_3.0.1_amd64.deb \
+        https://sourceforge.net/projects/turbovnc/files/3.0/turbovnc_3.0_amd64.deb \
+    && dpkg -i virtualgl_3.0.1_amd64.deb turbovnc_3.0_amd64.deb \
+    && rm virtualgl_3.0.1_amd64.deb turbovnc_3.0_amd64.deb \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 

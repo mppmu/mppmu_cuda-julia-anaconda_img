@@ -110,7 +110,7 @@ RUN true \
         css-html-js-minify \
         jupyter-server-proxy jupytext \
         ipympl \
-    && mamba install -c conda-forge click docopt pykwalify ruamel.yaml && pip3 install cffconvert \
+    && mamba install -c conda-forge click docopt pykwalify ruamel.yaml && pip3 install cffconvert voila \
     && pip3 install webio_jupyter_extension
 
     # css-html-js-minify required for Franklin.jl

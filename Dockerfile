@@ -102,7 +102,7 @@ RUN true \
     && provisioning/install-sw.sh anaconda3 2022.10 /opt/anaconda3
 
 
-# Install Jupyter extensions, jupytext and cffconvert:
+# Install Jupyter extensions, jupytext and cffconvert, as well as other packages:
 
 RUN true \
     && mamba install -y -c conda-forge \
@@ -111,7 +111,7 @@ RUN true \
         jupyter-server-proxy jupytext \
         ipympl \
     && mamba install -c conda-forge click docopt pykwalify ruamel.yaml && pip3 install cffconvert voila \
-    && pip3 install webio_jupyter_extension
+    && pip3 install webio_jupyter_extension juliacall
 
     # css-html-js-minify required for Franklin.jl
 

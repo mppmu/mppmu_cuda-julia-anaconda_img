@@ -73,7 +73,7 @@ ENV \
 RUN true\
     && provisioning/install-sw.sh julia-bindist 1.6.7 /opt/julia-1.6 \
     && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
-    && provisioning/install-sw.sh julia-bindist 1.8.2 /opt/julia-1.8 \
+    && provisioning/install-sw.sh julia-bindist 1.8.4 /opt/julia-1.8 \
     && (cd /opt/julia-1.8/bin && ln -s julia julia-1.8) \
     && (cd /opt && ln -s julia-1.8 julia)
 

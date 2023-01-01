@@ -134,7 +134,7 @@ ENV \
     PATH="/opt/nodejs/bin:$PATH" \
     MANPATH="/opt/nodejs/share/man:$MANPATH"
 
-RUN provisioning/install-sw.sh nodejs-bindist 16.17.0 /opt/nodejs
+RUN provisioning/install-sw.sh nodejs-bindist 18.12.1 /opt/nodejs
 
 
 # Install Java:

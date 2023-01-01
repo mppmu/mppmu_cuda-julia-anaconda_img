@@ -99,7 +99,7 @@ RUN true \
     && apt-get update && apt-get install -y \
         fdupes libxdmcp6 \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && provisioning/install-sw.sh anaconda3 2022.05 /opt/anaconda3
+    && provisioning/install-sw.sh anaconda3 2022.10 /opt/anaconda3
 
 
 # Install Jupyter extensions, jupytext and cffconvert:

@@ -105,12 +105,12 @@ RUN true \
 # Install Jupyter extensions, jupytext and cffconvert, as well as other packages:
 
 RUN true \
-    && mamba install -y -c conda-forge \
+    && mamba install -c main -c conda-forge -y \
         rise jupyter_contrib_nbextensions bash_kernel vega \
         css-html-js-minify \
         jupyter-server-proxy jupytext \
         ipympl \
-    && mamba install -c conda-forge click docopt pykwalify ruamel.yaml && pip3 install cffconvert voila \
+        click docopt pykwalify ruamel.yaml && pip3 install cffconvert voila \
     && pip3 install webio_jupyter_extension juliacall \
     && mamba install mpi4py
 

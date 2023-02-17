@@ -46,7 +46,7 @@ RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
 # Install Nvidia visual profilers:
 
 RUN apt-get update && apt-get install -y \
-        cuda-nsight-11-7 cuda-nvvp-11-7 \
+        nsight-systems cuda-nsight-11-7 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
@@ -75,9 +75,9 @@ RUN true\
     && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
     && provisioning/install-sw.sh julia-bindist 1.8.5 /opt/julia-1.8 \
     && (cd /opt/julia-1.8/bin && ln -s julia julia-1.8) \
-    && provisioning/install-sw.sh julia-bindist 1.9.0-beta3 /opt/julia-1.9 \
+    && provisioning/install-sw.sh julia-bindist 1.9.0-beta4 /opt/julia-1.9 \
     && (cd /opt/julia-1.9/bin && ln -s julia julia-1.9) \
-    && (cd /opt && ln -s julia-1.8 julia)
+    && (cd /opt && ln -s julia-1.9 julia)
 
 
 # Install Anaconda3 and Mamba:

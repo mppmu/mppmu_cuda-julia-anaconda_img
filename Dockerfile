@@ -188,9 +188,9 @@ RUN true \
 # Install code-server:
 
 RUN true \
-    && wget https://github.com/coder/code-server/releases/download/v4.9.1/code-server_4.9.1_amd64.deb \
-    && dpkg -i code-server_4.9.1_amd64.deb \
-    && rm code-server_4.9.1_amd64.deb
+    && wget https://github.com/coder/code-server/releases/download/v4.10.1/code-server_4.10.1_amd64.deb \
+    && dpkg -i code-server_4.10.1_amd64.deb \
+    && rm code-server_4.10.1_amd64.deb
 
 # Default profile environment settings:
 

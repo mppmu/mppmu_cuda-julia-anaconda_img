@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.7.0-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:11.7.0-cudnn8-devel-ubuntu22.04
 
 
 # Select bash as default shell to prevent errors in "/.singularity.d/actions/shell":
@@ -36,7 +36,7 @@ RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
         git \
         build-essential autoconf cmake pkg-config gfortran \
         libedit-dev libncurses-dev openssl libssl-dev symlinks \
-        debhelper dh-autoreconf help2man libarchive-dev python \
+        debhelper dh-autoreconf help2man libarchive-dev \
         squashfs-tools \
         \
     && apt-get install -y --no-install-recommends gnuplot \
@@ -46,7 +46,7 @@ RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
 # Install Nvidia visual profilers:
 
 RUN apt-get update && apt-get install -y \
-        nsight-systems cuda-nsight-11-7 \
+        cuda-nsight-systems-11-7 cuda-nsight-11-7 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
@@ -119,7 +119,7 @@ RUN true \
 
 # Install LaTeX (for Juypter PDF export and direct use):
 
-RUN apt-get update && apt-get install -y \
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && apt-get install -y \
         texlive texlive-latex-extra texlive-extra-utils texlive-science \
         texlive-fonts-extra texlive-bibtex-extra texlive-pstricks latexmk \
         biber feynmf latexdiff dvipng texlive-xetex pdf2svg cm-super \
@@ -179,6 +179,8 @@ RUN apt-get update && apt-get install -y \
 # Install Visual Studio Code Live Share dependencies:
 
 RUN true \
+    && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
+    && dpkg -i libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb && rm libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
     && wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 

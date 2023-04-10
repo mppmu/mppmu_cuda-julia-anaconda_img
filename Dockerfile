@@ -109,6 +109,7 @@ RUN true \
         rise jupyter_contrib_nbextensions bash_kernel vega \
         css-html-js-minify \
         jupyter-server-proxy jupytext \
+        jupyterlab-link-share \
         ipympl \
         click docopt pykwalify ruamel.yaml && pip3 install cffconvert voila \
     && pip3 install webio_jupyter_extension juliacall \

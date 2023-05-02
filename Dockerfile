@@ -177,17 +177,6 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
-# Install Visual Studio Code Live Share dependencies:
-
-RUN true \
-    && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
-    && dpkg -i libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb && rm libssl1.1_1.1.1f-1ubuntu2.17_amd64.deb \
-    && wget -O ~/vsls-reqs https://aka.ms/vsls-linux-prereq-script && chmod +x ~/vsls-reqs && ~/vsls-reqs \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# See https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/linux#details-on-required-libraries
-
-
 # Install code-server:
 
 RUN true \

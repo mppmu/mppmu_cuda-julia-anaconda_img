@@ -16,9 +16,9 @@ WORKDIR /root
 # Install system packages:
 
 RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
     && sed -i 's/apt-get upgrade$/apt-get upgrade -y/' `which unminimize` \
     && (echo y | unminimize) \
-    && apt-get update \
 	&& apt-get install -y --no-install-recommends ca-certificates \
     && apt-get install -y locales && locale-gen en_US.UTF-8 \
     && apt-get install -y \

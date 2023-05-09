@@ -75,7 +75,7 @@ RUN true\
     && (cd /opt/julia-1.6/bin && ln -s julia julia-1.6) \
     && provisioning/install-sw.sh julia-bindist 1.8.5 /opt/julia-1.8 \
     && (cd /opt/julia-1.8/bin && ln -s julia julia-1.8) \
-    && provisioning/install-sw.sh julia-bindist 1.9.0-rc3 /opt/julia-1.9 \
+    && provisioning/install-sw.sh julia-bindist 1.9.0 /opt/julia-1.9 \
     && (cd /opt/julia-1.9/bin && ln -s julia julia-1.9) \
     && (cd /opt && ln -s julia-1.9 julia)
 

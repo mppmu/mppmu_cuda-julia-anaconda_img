@@ -177,13 +177,6 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
-# Install code-server:
-
-RUN true \
-    && wget https://github.com/coder/code-server/releases/download/v4.11.0/code-server_4.11.0_amd64.deb \
-    && dpkg -i code-server_4.11.0_amd64.deb \
-    && rm code-server_4.11.0_amd64.deb
-
 # Default profile environment settings:
 
 ENV \

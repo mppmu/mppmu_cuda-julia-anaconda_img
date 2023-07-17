@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.7.0-cudnn8-devel-ubuntu22.04
+FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 
 
 # Select bash as default shell to prevent errors in "/.singularity.d/actions/shell":
@@ -46,7 +46,7 @@ RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
 # Install Nvidia visual profilers:
 
 RUN apt-get update && apt-get install -y \
-        cuda-nsight-systems-11-7 cuda-nsight-11-7 \
+        cuda-nsight-systems-11-8 cuda-nsight-11-8 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 

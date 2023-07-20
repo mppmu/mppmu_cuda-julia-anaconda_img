@@ -106,14 +106,17 @@ RUN true \
 
 RUN true \
     && mamba install -c main -c conda-forge -y \
-        rise jupyter_contrib_nbextensions bash_kernel vega \
+        jsonschema-with-format-nongpl webcolors \
+    && mamba install -c main -c conda-forge -y \
+        rise bash_kernel vega \
         css-html-js-minify \
         jupyter-server-proxy jupytext \
         jupyterlab-link-share \
-        ipympl \
-        click docopt pykwalify ruamel.yaml && pip3 install cffconvert voila \
-    && pip3 install webio_jupyter_extension juliacall \
-    && mamba install mpi4py
+        click docopt pykwalify ruamel.yaml \
+    && pip3 install \
+        cffconvert voila jupyter_contrib_nbextensions ipympl \
+        webio_jupyter_extension juliacall \
+    && mamba install -y mpi4py
 
     # css-html-js-minify required for Franklin.jl
 

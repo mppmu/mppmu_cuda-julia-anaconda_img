@@ -32,6 +32,7 @@ RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
         perl \
         \
         screen tmux parallel mc \
+        util-linux numactl \
         \
         git \
         build-essential autoconf cmake pkg-config gfortran \

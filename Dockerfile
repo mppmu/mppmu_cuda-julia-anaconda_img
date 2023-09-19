@@ -111,7 +111,7 @@ RUN true \
     && mamba install -c main -c conda-forge -y \
         rise bash_kernel vega \
         css-html-js-minify \
-        jupyter-server-proxy jupytext \
+        jupytext \
         jupyterlab-link-share \
         click docopt pykwalify ruamel.yaml \
     && pip3 install \

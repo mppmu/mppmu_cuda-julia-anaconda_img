@@ -46,7 +46,7 @@ RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
 
 # Install Nvidia visual profilers:
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         cuda-nsight-systems-11-8 cuda-nsight-11-8 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -97,7 +97,7 @@ ENV \
     # PYTHON and JUPYTER environment variables for PyCall.jl and IJulia.jl
 
 RUN true \
-    && apt-get update && apt-get install -y \
+    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         fdupes libxdmcp6 \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && provisioning/install-sw.sh anaconda3 2023.07-1 /opt/anaconda3
@@ -190,7 +190,7 @@ ENV \
 
 # Install additional packages:
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         htop nmon \
         nano vim \
         git-gui gitk \

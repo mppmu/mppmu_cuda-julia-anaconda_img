@@ -116,6 +116,7 @@ RUN true \
         click docopt pykwalify ruamel.yaml \
     && pip3 install \
         cffconvert voila jupyter_contrib_nbextensions ipympl \
+        "jupyterlab_rise<0.40.0" \
         webio_jupyter_extension juliacall \
     && mamba install -y mpi4py
 

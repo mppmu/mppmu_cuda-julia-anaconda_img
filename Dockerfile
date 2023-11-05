@@ -78,7 +78,7 @@ RUN true\
     && (cd /opt/julia-1.9/bin && ln -s julia julia-1.9) \
     && provisioning/install-sw.sh julia-bindist 1.10.0-rc1 /opt/julia-1.10 \
     && (cd /opt/julia-1.10/bin && ln -s julia julia-1.10) \
-    && (cd /opt && ln -s julia-1.9 julia)
+    && (cd /opt && ln -s julia-1.10 julia)
 
 
 # Install Anaconda3 and Mamba:

@@ -31,7 +31,7 @@ RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
         \
         perl \
         \
-        screen tmux parallel mc \
+        screen tmux parallel mc tree ncdu \
         util-linux numactl \
         \
         git \

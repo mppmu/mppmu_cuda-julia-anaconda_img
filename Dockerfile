@@ -30,6 +30,7 @@ RUN set -eux && export DEBIAN_FRONTEND=noninteractive \
         aptitude \
         \
         perl \
+        zsh \
         \
         screen tmux parallel mc tree ncdu \
         util-linux numactl \

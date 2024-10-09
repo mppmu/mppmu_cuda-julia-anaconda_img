@@ -82,16 +82,16 @@ RUN true\
     && (cd /opt && ln -s julia-1.11 julia)
 
 
-# Install Anaconda3 and Mamba:
+# Install Miniforge3:
 
-COPY provisioning/install-sw-scripts/anaconda3-* provisioning/install-sw-scripts/
+COPY provisioning/install-sw-scripts/miniforge3-* provisioning/install-sw-scripts/
 
 ENV \
-    PATH="/opt/anaconda3/bin:/opt/anaconda3/condabin:$PATH" \
-    MANPATH="/opt/anaconda3/share/man:$MANPATH" \
-    CONDA_EXE="/opt/anaconda3/bin/conda" \
-    CONDA_PREFIX="/opt/anaconda3" \
-    CONDA_PYTHON_EXE="/opt/anaconda3/bin/python" \
+    PATH="/opt/conda/bin:/opt/conda/condabin:$PATH" \
+    MANPATH="/opt/conda/share/man:$MANPATH" \
+    CONDA_EXE="/opt/conda/bin/conda" \
+    CONDA_PREFIX="/opt/conda" \
+    CONDA_PYTHON_EXE="/opt/conda/bin/python" \
     PYTHON="python3" \
     JUPYTER="jupyter"
 
@@ -101,25 +101,26 @@ RUN true \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         fdupes libxdmcp6 \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && provisioning/install-sw.sh anaconda3 2023.07-1 /opt/anaconda3
+    && provisioning/install-sw.sh miniforge3 24.7.1-2 /opt/conda
 
 
 # Install Jupyter extensions, jupytext and cffconvert, as well as other packages:
 
 RUN true \
-    && mamba install -c main -c conda-forge -y \
+    && mamba install -y \
+        matplotlib numpy \
+        jupyterlab notebook nbformat nbconvert \
+        rise jupyterlab_rise jupyter_contrib_nbextensions bash_kernel \
         jsonschema-with-format-nongpl webcolors \
-    && mamba install -c main -c conda-forge -y \
-        rise bash_kernel vega \
         css-html-js-minify \
         jupytext \
         jupyterlab-link-share \
         click docopt pykwalify ruamel.yaml \
+        mpi4py \
+        pyjuliacall pyjuliapkg \
+        voila ipympl \
     && pip3 install \
-        cffconvert voila jupyter_contrib_nbextensions ipympl \
-        "jupyterlab_rise<0.40.0" \
-        webio_jupyter_extension juliacall \
-    && mamba install -y mpi4py
+        webio_jupyter_extension
 
     # css-html-js-minify required for Franklin.jl
 

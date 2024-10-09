@@ -26,20 +26,16 @@ EOF
 
 
 pkg_install() {
-    DOWNLOAD_URL="https://repo.continuum.io/archive/Anaconda3-${PACKAGE_VERSION}-Linux-x86_64.sh"
+    DOWNLOAD_URL="https://github.com/conda-forge/miniforge/releases/download/${PACKAGE_VERSION}/Miniforge3-${PACKAGE_VERSION}-Linux-x86_64.sh"
     echo "INFO: Download URL: \"${DOWNLOAD_URL}\"." >&2
 
-    download "${DOWNLOAD_URL}" > anaconda-installer.sh
-    bash ./anaconda-installer.sh -b -p "${INSTALL_PREFIX}"
+    download "${DOWNLOAD_URL}" > miniforge3-installer.sh
+    bash ./miniforge3-installer.sh -b -p "${INSTALL_PREFIX}"
 
     conda clean -y --tarballs
 
     mkdir "${INSTALL_PREFIX}/devbin"
     mv "${INSTALL_PREFIX}/bin"/*-config "${INSTALL_PREFIX}/devbin"
-
-    # Install mamba via micromamba since conda solver takes ages or fails to do it:
-    wget -qO- https://github.com/mamba-org/micromamba-releases/releases/download/1.5.8-0/micromamba-linux-64.tar.bz2 | tar -xvj bin/micromamba
-    bin/micromamba -r "${INSTALL_PREFIX}" install -y mamba -n base -c conda-forge
 
     install_disable_conda "${INSTALL_PREFIX}"
 }

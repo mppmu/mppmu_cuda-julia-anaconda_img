@@ -101,7 +101,7 @@ RUN true \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         fdupes libxdmcp6 \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && provisioning/install-sw.sh miniforge3 24.7.1-2 /opt/conda
+    && provisioning/install-sw.sh miniforge3 24.9.0-0 /opt/conda
 
 
 # Install Jupyter extensions, jupytext and cffconvert, as well as other packages:

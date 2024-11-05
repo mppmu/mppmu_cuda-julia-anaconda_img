@@ -175,12 +175,12 @@ RUN apt-get update && apt-get install -y \
 # Install VirtualGL:
 
 RUN apt-get update && apt-get install -y \
-        libglu1-mesa libegl1-mesa \
+        libglu1-mesa libegl1-mesa dbus-x11 \
     && wget \
-        https://sourceforge.net/projects/virtualgl/files/3.1/virtualgl_3.1_amd64.deb \
-        https://sourceforge.net/projects/turbovnc/files/3.1/turbovnc_3.1_amd64.deb \
-    && dpkg -i virtualgl_3.1_amd64.deb turbovnc_3.1_amd64.deb \
-    && rm virtualgl_3.1_amd64.deb turbovnc_3.1_amd64.deb \
+        https://github.com/VirtualGL/virtualgl/releases/download/3.1.1/virtualgl_3.1.1_amd64.deb \
+        https://github.com/TurboVNC/turbovnc/releases/download/3.1.2/turbovnc_3.1.2_amd64.deb \
+    && dpkg -i virtualgl_3.1.1_amd64.deb turbovnc_3.1.2_amd64.deb \
+    && rm virtualgl_3.1.1_amd64.deb turbovnc_3.1.2_amd64.deb \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 

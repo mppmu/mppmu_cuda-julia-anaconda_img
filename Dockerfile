@@ -114,7 +114,6 @@ RUN true \
         jsonschema-with-format-nongpl webcolors \
         css-html-js-minify \
         jupytext \
-        jupyterlab-link-share \
         click docopt pykwalify ruamel.yaml \
         mpi4py \
         pyjuliacall pyjuliapkg \
